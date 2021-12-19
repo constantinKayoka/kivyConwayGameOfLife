@@ -103,14 +103,14 @@ class Tableau (App):
         for i in range(int(self.input_wide.text)):
 
             for j in range(int(self.intput_height.text)):
-
+                n = self.checkNeighborhood(i, j)
                 if self.matrix[i][j].state == 'down':  # si vivante
                     
-                    if self.checkNeighborhood(i, j) != 2 and self.checkNeighborhood(i, j) != 3 : # si ni 2 ni 3 voisines vivantes
+                    if n != 2 and n != 3 : # si ni 2 ni 3 voisines vivantes
                         self.matrix[i][j].state = "normal"                         # meurt
 
                 elif self.matrix[i][j].state == 'normal':                                   # sinon, si morte
-                    if self.checkNeighborhood(i, j) == 3:     # si 3 voisines vivantes devient vivante
+                    if n == 3:     # si 3 voisines vivantes devient vivante
                         self.matrix[i][j].state = "down"
                         
     def addButton_randomized(self,source):
@@ -157,7 +157,7 @@ class Tableau (App):
                 n = self.checkNeighborhood(i, j)
                 if self.matrix[i][j].state == 'down':  # si vivante
                     
-                    if n != 2 or n != 3 : # si ni 2 ni 3 voisines vivantes
+                    if n != 2 and n != 3 : # si ni 2 ni 3 voisines vivantes
                         self.matrix[i][j].state = "normal"                         # meurt
 
                 else:                                   # sinon, si morte
@@ -177,19 +177,19 @@ class Tableau (App):
         try:  #1
             if self.matrix[numLigneCellule - 1][numColonneCellule - 1].state == "down":
                 nombreVivante += 1
-        except:
+        except IndexError:
             pass
 
         try: #2
-            if self.matrix[numLigneCellule - 1 ][numColonneCellule + 1].state == "down":
+            if self.matrix[numLigneCellule - 1][numColonneCellule + 1].state == "down":
                 nombreVivante += 1
-        except:
+        except IndexError:
             pass
 
         try: #3
             if self.matrix[numLigneCellule - 1][numColonneCellule ].state == "down":
                 nombreVivante += 1
-        except:
+        except IndexError:
             pass
 
 
@@ -197,13 +197,13 @@ class Tableau (App):
         try: #4
             if self.matrix[numLigneCellule][numColonneCellule - 1].state == "down":
                 nombreVivante += 1
-        except:
+        except IndexError:
             pass
 
         try: #5
             if self.matrix[numLigneCellule][numColonneCellule + 1].state == "down":
                 nombreVivante += 1
-        except:
+        except IndexError:
             pass
 
 #####
@@ -211,18 +211,18 @@ class Tableau (App):
         try: #6
             if self.matrix[numLigneCellule + 1][numColonneCellule + 1].state == "down":
                 nombreVivante += 1
-        except:
+        except IndexError:
             pass
 
         try: #7
             if self.matrix[numLigneCellule + 1][numColonneCellule - 1].state == "down":
                 nombreVivante += 1
-        except:
+        except IndexError:
             pass
         try: #8
             if self.matrix[numLigneCellule + 1][numColonneCellule ].state == "down":
                 nombreVivante += 1
-        except:
+        except IndexError:
             pass
 
         return nombreVivante
